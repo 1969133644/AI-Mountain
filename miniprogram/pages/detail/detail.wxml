@@ -1,0 +1,93 @@
+<!-- pages/detail/detail.wxml -->
+<view class="page-wrap">
+  <view wx:if="{{!mountain}}" class="page">
+    <view class="back-row" bindtap="goBack">
+      <text class="back-text">‹ 山岳列表</text>
+    </view>
+    <view class="wx-loading"><text>加载中…</text></view>
+  </view>
+
+  <view wx:else class="page">
+    <view class="back-row" bindtap="goBack">
+      <text class="back-text">‹ 山岳列表</text>
+    </view>
+
+    <view class="hero">
+      <view class="hero-placeholder bg-{{mountain.bgColor}}" wx:if="{{!imageLoaded}}">
+        <text class="hero-icon">⛰</text>
+      </view>
+      <image 
+        src="{{mountain.image}}" 
+        mode="aspectFill" 
+        class="hero-img"
+        bindload="onImageLoad"
+        binderror="onImageLoad"
+      />
+      <view class="hero-overlay bg-{{mountain.bgColor}}"></view>
+      <view class="hero-bot">
+        <view>
+          <text class="hero-name">{{mountain.name}}</text>
+          <view class="hero-loc">
+            <text>{{mountain.province}}省 · {{mountain.city}} · {{mountain.altitude}}m</text>
+          </view>
+        </view>
+        <view class="hero-actions">
+          <view class="hbtn {{mountain.favorited ? 'hbtn-on' : ''}}" catchtap="toggleFav">
+            <text>{{mountain.favorited ? '♥' : '♡'}}</text>
+          </view>
+          <button class="hbtn hbtn-share" open-type="share">
+            <text>↗</text>
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="info4">
+      <view class="icell"><text class="ilbl">所属山系</text><text class="ival">{{mountain.mountain_system}}</text></view>
+      <view class="icell"><text class="ilbl">主峰海拔</text><text class="ival">{{mountain.altitude}} m</text></view>
+      <view class="icell"><text class="ilbl">地理坐标</text><text class="ival">{{mountain.coordsText}}</text></view>
+      <view class="icell"><text class="ilbl">景区等级</text><text class="ival">{{mountain.levelText}}</text></view>
+    </view>
+
+    <view class="wx-card">
+      <view class="wx-hd"><text>☁ 实时天气</text></view>
+      <view wx:if="{{weather.now}}">
+        <view class="wx-now-row">
+          <text class="big-temp">{{weather.now.temp}}°</text>
+          <view>
+            <text class="wx-desc-main">{{weather.now.text}}</text>
+            <text class="wx-desc-sub">湿度 {{weather.now.humidity}}% · 风力 {{weather.now.windScale}}级</text>
+          </view>
+        </view>
+      </view>
+      <view wx:elif="{{weatherLoading}}" class="wx-loading"><text>天气加载中…</text></view>
+      <view wx:elif="{{weatherError}}" class="wx-loading"><text>天气加载失败</text></view>
+
+      <view class="wx-hd wx-hd-sub"><text>📅 7天预报</text></view>
+      <scroll-view class="fc-scroll" scroll-x>
+        <view
+          wx:for="{{weather.forecast}}" wx:key="date"
+          class="fcd {{index === 0 ? 'fcd-today' : ''}}"
+        >
+          <text class="fcd-date">{{item.weekday}}</text>
+          <text class="fcd-text">{{item.text}}</text>
+          <view class="fcd-temp">
+            <text class="fcd-t-max">{{item.tempMax}}°</text>
+            <text class="fcd-t-min">{{item.tempMin}}°</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="desc-card">
+      <text class="desc-text">{{mountain.intro}}</text>
+      <view class="tag-row">
+        <text wx:for="{{mountain.tags}}" wx:key="index" class="mtag">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="ck-btn {{mountain.checkedIn ? 'ck-done' : ''}}" bindtap="doCheckin">
+      <text>{{mountain.checkedIn ? '已打卡 ✓' : '📍 标记打卡此山'}}</text>
+    </view>
+  </view>
+</view>

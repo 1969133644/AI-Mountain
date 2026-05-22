@@ -1,0 +1,64 @@
+<!-- pages/index/index.wxml -->
+<view class="page">
+  <view wx:if="{{loadError}}" class="err-tip">{{loadError}}</view>
+
+  <scroll-view class="chips" scroll-x>
+    <view
+      wx:for="{{tags}}" wx:key="*this"
+      class="chip {{activeTag === item ? 'chip-on' : ''}}"
+      bindtap="onTagTap" data-tag="{{item}}"
+    >{{item}}</view>
+  </scroll-view>
+
+  <view class="sec-hd">
+    <text class="sec-title">{{activeTag === '全部' ? '全部山岳' : activeTag}} · {{filteredList.length}} 座</text>
+    <view class="sec-more" bindtap="sortToggle">
+      <text>{{sortBy === 'default' ? '按海拔' : '默认'}} ↕</text>
+    </view>
+  </view>
+
+  <view class="card-grid">
+    <view
+      wx:for="{{filteredList}}" wx:key="id"
+      class="mcard"
+      bindtap="goDetail" data-id="{{item.id}}"
+    >
+      <view class="cimg">
+        <view class="cimg-placeholder bg-{{item.bgColor}}" wx:if="{{!item.imageLoaded}}">
+          <text class="cimg-icon">⛰</text>
+        </view>
+        <image 
+          src="{{item.image}}" 
+          mode="aspectFill" 
+          class="cimg-src"
+          bindload="onImageLoad"
+          data-id="{{item.id}}"
+          binderror="onImageError"
+        />
+        <view class="cimg-overlay">
+          <view class="cbadge badge-{{item.bgColor}}">{{item.tags[0]}}</view>
+          <view class="alt-badge">{{item.altitude}}m</view>
+          <view wx:if="{{item.checkedIn}}" class="ccheckin">✓ 已打卡</view>
+          <view
+            class="cfav {{item.favorited ? 'cfav-on' : ''}}"
+            catchtap="toggleFav" data-id="{{item.id}}"
+          >
+            <text>{{item.favorited ? '♥' : '♡'}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="cbody">
+        <text class="ctitle">{{item.name}}</text>
+        <view class="csub">
+          <text>{{item.province}} · {{item.city}}</text>
+        </view>
+        <view class="cweather">
+          <text class="wtext">{{item.weather.text}}</text>
+          <text class="wtemp">{{item.weather.temp}}°</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{filteredList.length === 0 && !loadError}}" class="empty-tip">暂无山岳数据</view>
+</view>

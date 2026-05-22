@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山岳志 · 设计说明文档</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --ink:#1a1a18;
+  --ink2:#3d3d38;
+  --ink3:#6b6b63;
+  --ink4:#9a9a90;
+  --paper:#faf9f5;
+  --paper2:#f2f0e8;
+  --paper3:#e8e5d8;
+  --moss:#3B6D11;
+  --moss-l:#EAF3DE;
+  --blue:#185FA5;
+  --blue-l:#E6F1FB;
+  --amber:#854F0B;
+  --amber-l:#FAEEDA;
+  --teal:#0F6E56;
+  --teal-l:#E1F5EE;
+  --purple:#534AB7;
+  --purple-l:#EEEDFE;
+  --coral:#993C1D;
+  --coral-l:#FAECE7;
+  --red:#D85A30;
+  --rule:rgba(0,0,0,.08);
+  --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans SC',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+}
+
+/* ── 顶部封面 ── */
+.cover{
+  min-height:100vh;
+  background:linear-gradient(160deg,#0d1a0a 0%,#1c3510 40%,#2a4d1a 70%,#1a2e0e 100%);
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;
+  padding:80px 10%;
+  position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.cover-eyebrow{
+  font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-bottom:20px;
+  font-family:'Noto Sans SC';font-weight:400;
+}
+.cover-title{
+  font-family:'Noto Serif SC';font-size:clamp(52px,8vw,88px);
+  font-weight:700;color:#fff;line-height:1.05;
+  margin-bottom:16px;
+}
+.cover-title span{color:#97C459}
+.cover-sub{
+  font-size:16px;color:rgba(255,255,255,.55);
+  max-width:520px;line-height:1.8;margin-bottom:48px;
+  font-weight:300;
+}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap}
+.cover-tag{
+  font-size:12px;color:rgba(255,255,255,.5);
+  border:0.5px solid rgba(255,255,255,.15);
+  padding:6px 14px;border-radius:20px;
+}
+.cover-scroll{
+  position:absolute;bottom:40px;left:10%;
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;color:rgba(255,255,255,.3);
+  letter-spacing:.15em;
+}
+.scroll-line{width:40px;height:0.5px;background:rgba(255,255,255,.2)}
+
+/* ── 通用布局 ── */
+.section{padding:80px 10%;border-bottom:0.5px solid var(--rule)}
+.section:last-child{border-bottom:none}
+.s-eyebrow{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:12px;font-weight:400;
+}
+.s-title{
+  font-family:'Noto Serif SC';font-size:clamp(28px,4vw,44px);
+  font-weight:600;color:var(--ink);line-height:1.2;margin-bottom:8px;
+}
+.s-lead{font-size:15px;color:var(--ink3);max-width:600px;margin-bottom:48px}
+hr.divider{border:none;border-top:0.5px solid var(--rule);margin:32px 0}
+
+/* ── 设计概述卡片 ── */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:48px}
+.ov-card{
+  background:var(--paper2);border:0.5px solid var(--paper3);
+  border-radius:var(--r);padding:24px;
+  transition:transform .2s;
+}
+.ov-card:hover{transform:translateY(-2px)}
+.ov-icon{font-size:24px;margin-bottom:12px}
+.ov-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.ov-text{font-size:12px;color:var(--ink3);line-height:1.7}
+
+/* ── 色彩系统 ── */
+.color-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.swatch{border-radius:8px;overflow:hidden;width:120px}
+.swatch-color{height:56px}
+.swatch-info{padding:8px;background:var(--paper2);border:0.5px solid var(--paper3)}
+.swatch-name{font-size:11px;font-weight:500;color:var(--ink)}
+.swatch-hex{font-size:10px;color:var(--ink4);font-family:monospace}
+.swatch-role{font-size:10px;color:var(--ink3);margin-top:2px}
+
+/* ── 页面截图区 ── */
+.screens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px}
+.screen-item{}
+.screen-label{
+  font-size:11px;font-weight:500;color:var(--ink3);
+  margin-bottom:12px;letter-spacing:.05em;
+  display:flex;align-items:center;gap:6px;
+}
+.screen-label i{font-size:13px}
+.phone-shell{
+  background:#1a1a18;border-radius:28px;padding:3px;
+  box-shadow:0 24px 64px rgba(0,0,0,.18),0 4px 12px rgba(0,0,0,.1);
+  max-width:240px;
+}
+.phone-inner{
+  background:#faf9f5;border-radius:25px;overflow:hidden;
+  font-family:'Noto Sans SC';
+}
+.pstatus{
+  height:36px;background:#fff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 16px;
+  font-size:10px;color:#888;border-bottom:0.5px solid #efefeb;
+  flex-shrink:0;
+}
+.pscreen{padding:10px;background:#f5f4f0;display:flex;flex-direction:column;gap:7px}
+.ptab{
+  height:48px;background:#fff;display:flex;
+  border-top:0.5px solid #efefeb;
+}
+.pt{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:9px;color:#bbb}
+.pt.a{color:#185FA5}
+.pt i{font-size:16px}
+
+/* 首页元素 */
+.p-search{background:#fff;border-radius:16px;padding:7px 12px;display:flex;align-items:center;gap:6px;font-size:11px;color:#bbb;border:0.5px solid #e8e5d8}
+.p-search i{font-size:13px}
+.p-chips{display:flex;gap:5px;overflow:hidden}
+.p-chip{white-space:nowrap;padding:3px 10px;border-radius:12px;font-size:10px;border:0.5px solid #ccc;color:#888;background:#fff}
+.p-chip.a{background:#E6F1FB;border-color:#185FA5;color:#0C447C;font-weight:500}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.p-card{background:#fff;border-radius:8px;border:0.5px solid #e8e5d8;overflow:hidden}
+.p-cimg{height:64px;display:flex;align-items:center;justify-content:center;position:relative}
+.p-cimg i.hero{font-size:24px;opacity:.35}
+.p-cbadge{position:absolute;top:5px;left:5px;font-size:8px;padding:1px 5px;border-radius:6px;font-weight:500}
+.p-calt{position:absolute;bottom:5px;left:5px;font-size:8px;padding:1px 5px;border-radius:6px;background:rgba(0,0,0,.06);color:#555}
+.p-cfav{position:absolute;bottom:5px;right:5px;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;border:0.5px solid #e0dfd8}
+.p-cfav i{font-size:9px;color:#bbb}
+.p-cfav.on i{color:#D85A30}
+.p-cbody{padding:5px 7px 7px}
+.p-ctitle{font-size:11px;font-weight:500;color:#222}
+.p-csub{font-size:9px;color:#aaa;margin-top:1px}
+.p-cw{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:#666}
+.p-checkin{position:absolute;top:5px;right:5px;font-size:8px;padding:1px 5px;border-radius:6px;background:#E6F1FB;color:#0C447C;border:0.5px solid #85B7EB;display:flex;align-items:center;gap:2px}
+
+/* 详情页元素 */
+.p-hero{background:#EAF3DE;border-radius:8px;height:96px;display:flex;align-items:center;justify-content:center;position:relative;border:0.5px solid #d5e8c0}
+.p-hero i{font-size:36px;color:#3B6D11;opacity:.35}
+.p-hero-bot{position:absolute;bottom:0;left:0;right:0;padding:7px 9px;display:flex;justify-content:space-between;align-items:flex-end}
+.p-hname{font-size:13px;font-weight:500;color:#27500A}
+.p-hloc{font-size:9px;color:#3B6D11;display:flex;align-items:center;gap:2px;margin-top:1px}
+.p-hloc i{font-size:9px}
+.p-hbtns{display:flex;gap:4px}
+.p-hbtn{width:22px;height:22px;border-radius:50%;background:#fff;border:0.5px solid #e0dfd8;display:flex;align-items:center;justify-content:center}
+.p-hbtn i{font-size:11px;color:#aaa}
+.p-hbtn.on i{color:#D85A30}
+.p-info4{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.p-ic{background:#fff;border-radius:6px;padding:6px 7px;border:0.5px solid #e8e5d8}
+.p-ilbl{font-size:8px;color:#bbb}
+.p-ival{font-size:11px;font-weight:500;color:#222;margin-top:1px}
+.p-wx{background:#fff;border-radius:8px;border:0.5px solid #e8e5d8;padding:8px}
+.p-wx-hd{font-size:10px;font-weight:500;color:#888;margin-bottom:6px;display:flex;align-items:center;gap:3px}
+.p-wx-hd i{font-size:11px}
+.p-wx-now{display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:0.5px solid #efefeb;margin-bottom:6px}
+.p-big-t{font-size:22px;font-weight:500;color:#222}
+.p-wx-meta{font-size:9px;color:#888;line-height:1.6}
+.p-fc{display:flex;gap:2px;overflow:hidden}
+.p-fcd{min-width:28px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;border-radius:5px}
+.p-fcd.t{background:#E6F1FB}
+.p-fcd-date{font-size:8px;color:#bbb}
+.p-fcd i{font-size:11px;color:#378ADD}
+.p-fcd-t{font-size:9px;font-weight:500;color:#222}
+.p-desc{background:#fff;border-radius:8px;border:0.5px solid #e8e5d8;padding:8px;font-size:10px;color:#666;line-height:1.6}
+.p-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.p-tag{font-size:8px;padding:2px 6px;border-radius:8px;border:0.5px solid #e0dfd8;color:#888;background:#f5f4f0}
+.p-ckbtn{background:#EAF3DE;border:0.5px solid #97C459;border-radius:6px;padding:7px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;color:#27500A}
+.p-ckbtn i{font-size:12px;color:#3B6D11}
+
+/* 我的页面 */
+.p-profile{background:#fff;border-radius:8px;border:0.5px solid #e8e5d8;padding:9px;display:flex;align-items:center;gap:8px}
+.p-ava{width:34px;height:34px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#0C447C;flex-shrink:0}
+.p-pname{font-size:12px;font-weight:500;color:#222}
+.p-psub{font-size:9px;color:#bbb;margin-top:1px}
+.p-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.p-scel{background:#fff;border-radius:6px;border:0.5px solid #e8e5d8;padding:6px;text-align:center}
+.p-snum{font-size:15px;font-weight:500;color:#222}
+.p-slbl{font-size:8px;color:#bbb;margin-top:1px}
+.p-prog{background:#fff;border-radius:8px;border:0.5px solid #e8e5d8;padding:8px}
+.p-prog-hd{display:flex;justify-content:space-between;margin-bottom:6px;font-size:10px;font-weight:500;color:#888}
+.p-prow{display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.p-pname2{font-size:9px;color:#444;width:42px;flex-shrink:0}
+.p-pbg{flex:1;height:4px;background:#f0ede4;border-radius:2px;overflow:hidden}
+.p-pfill{height:100%;border-radius:2px}
+.p-pcnt{font-size:8px;color:#bbb;width:18px;text-align:right}
+.p-sec-hd{display:flex;justify-content:space-between;align-items:center}
+.p-sec-title{font-size:10px;font-weight:500;color:#888}
+.p-sec-more{font-size:9px;color:#185FA5}
+.p-cklist{display:flex;flex-direction:column;gap:4px}
+.p-ckitem{background:#fff;border-radius:7px;border:0.5px solid #e8e5d8;padding:6px 8px;display:flex;align-items:center;gap:6px}
+.p-ckicon{width:26px;height:26px;border-radius:6px;background:#EAF3DE;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p-ckicon i{font-size:13px;color:#3B6D11}
+.p-ckname{font-size:10px;font-weight:500;color:#222}
+.p-ckdate{font-size:8px;color:#bbb;margin-top:1px}
+.p-ckprov{margin-left:auto;font-size:8px;color:#bbb}
+
+/* ── 功能模块表格 ── */
+.feat-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:32px}
+.feat-table th{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink4);font-weight:500;text-align:left;
+  padding:10px 16px;border-bottom:0.5px solid var(--rule);
+}
+.feat-table td{padding:12px 16px;border-bottom:0.5px solid var(--rule);color:var(--ink2);vertical-align:top}
+.feat-table tr:last-child td{border-bottom:none}
+.feat-table tr:hover td{background:var(--paper2)}
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+.badge-done{background:#EAF3DE;color:#3B6D11;border:0.5px solid #97C459}
+.badge-api{background:#E6F1FB;color:#0C447C;border:0.5px solid #85B7EB}
+.badge-db{background:#EEEDFE;color:#534AB7;border:0.5px solid #AFA9EC}
+.badge-local{background:#FAEEDA;color:#854F0B;border:0.5px solid #EF9F27}
+
+/* ── 技术架构图 ── */
+.arch-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border:0.5px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:32px}
+.arch-cell{background:var(--paper);padding:24px}
+.arch-cell-title{font-size:11px;font-weight:500;letter-spacing:.05em;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.arch-cell-title i{font-size:16px}
+.arch-item{font-size:12px;color:var(--ink3);padding:4px 0;border-bottom:0.5px solid var(--rule);display:flex;align-items:center;gap:6px}
+.arch-item:last-child{border-bottom:none}
+.arch-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+/* ── 数据结构 ── */
+.code-block{
+  background:#1a1a18;border-radius:var(--r);padding:28px;
+  font-family:'Courier New',monospace;font-size:12px;line-height:1.8;
+  color:#c5c5b5;overflow-x:auto;margin-bottom:16px;
+}
+.code-block .key{color:#97C459}
+.code-block .str{color:#E6B84A}
+.code-block .num{color:#72B8E0}
+.code-block .bool{color:#C46B4F}
+.code-block .cmt{color:#5a5a4a;font-style:italic}
+
+/* ── 文件结构 ── */
+.file-tree{
+  background:var(--paper2);border:0.5px solid var(--paper3);
+  border-radius:var(--r);padding:24px;font-family:monospace;font-size:12px;
+  line-height:2;color:var(--ink2);
+}
+.file-tree .dir{color:var(--moss);font-weight:500}
+.file-tree .file{color:var(--ink2)}
+.file-tree .desc{color:var(--ink4);font-size:11px}
+.file-tree .indent1{padding-left:20px}
+.file-tree .indent2{padding-left:40px}
+.file-tree .indent3{padding-left:60px}
+
+/* ── 用户流程 ── */
+.flow-row{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:32px}
+.flow-step{
+  background:var(--paper2);border:0.5px solid var(--paper3);
+  border-radius:8px;padding:14px 18px;font-size:12px;
+  display:flex;flex-direction:column;gap:4px;
+  min-width:100px;
+}
+.flow-step-num{font-size:10px;color:var(--ink4);font-weight:500}
+.flow-step-name{font-size:13px;font-weight:500;color:var(--ink)}
+.flow-step-sub{font-size:10px;color:var(--ink3)}
+.flow-arrow{font-size:18px;color:var(--ink4);padding:0 8px;flex-shrink:0}
+
+/* ── 响应式 ── */
+@media(max-width:768px){
+  .cover{padding:60px 6%}
+  .section{padding:60px 6%}
+  .arch-grid{grid-template-columns:1fr}
+  .screens-grid{grid-template-columns:1fr}
+  .flow-row{flex-direction:column;align-items:flex-start}
+  .flow-arrow{transform:rotate(90deg)}
+}
+
+/* ── 页脚 ── */
+.footer{
+  padding:48px 10%;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:16px;
+  border-top:0.5px solid var(--rule);
+}
+.footer-brand{font-family:'Noto Serif SC';font-size:20px;font-weight:600;color:var(--ink)}
+.footer-brand span{color:var(--moss)}
+.footer-meta{font-size:11px;color:var(--ink4)}
+
+/* ── 导航 ── */
+.toc{
+  position:fixed;right:32px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:8px;z-index:100;
+}
+.toc-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(0,0,0,.15);cursor:pointer;
+  transition:all .2s;
+}
+.toc-dot:hover,.toc-dot.active{background:var(--moss);transform:scale(1.4)}
+@media(max-width:1024px){.toc{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="页面导航">
+  <div class="toc-dot active" onclick="scrollToSection(0)" title="封面"></div>
+  <div class="toc-dot" onclick="scrollToSection(1)" title="产品概述"></div>
+  <div class="toc-dot" onclick="scrollToSection(2)" title="设计系统"></div>
+  <div class="toc-dot" onclick="scrollToSection(3)" title="界面设计"></div>
+  <div class="toc-dot" onclick="scrollToSection(4)" title="功能模块"></div>
+  <div class="toc-dot" onclick="scrollToSection(5)" title="技术架构"></div>
+  <div class="toc-dot" onclick="scrollToSection(6)" title="数据结构"></div>
+  <div class="toc-dot" onclick="scrollToSection(7)" title="文件结构"></div>
+</nav>
+
+<!-- ── 封面 ── -->
+<section class="cover" id="s0">
+  <div class="cover-eyebrow">Design Specification Document · v1.0</div>
+  <h1 class="cover-title">山<span>岳</span>志</h1>
+  <p class="cover-sub">国内山岳信息统计查询小程序<br>收录 186 座名山，集地理、天气、打卡于一体的轻量化查询工具</p>
+  <div class="cover-meta">
+    <span class="cover-tag">微信小程序</span>
+    <span class="cover-tag">云开发</span>
+    <span class="cover-tag">和风天气 API</span>
+    <span class="cover-tag">186 座山岳</span>
+    <span class="cover-tag">15 天预报</span>
+  </div>
+  <div class="cover-scroll"><div class="scroll-line"></div>向下滚动</div>
+</section>
+
+<!-- ── 1. 产品概述 ── -->
+<section class="section" id="s1">
+  <div class="s-eyebrow">01 · Product Overview</div>
+  <h2 class="s-title">产品概述</h2>
+  <p class="s-lead">轻量化山岳信息查询工具，专注收录国内名山，为旅游规划、地理学习、户外参考提供直观的数据查询服务。</p>
+
+  <div class="overview-grid">
+    <div class="ov-card">
+      <div class="ov-icon">🏔</div>
+      <div class="ov-title">数据查询</div>
+      <div class="ov-text">收录 186 座国内名山，含地理坐标、海拔、山系、省市归属、景区等级等结构化数据</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">🌤</div>
+      <div class="ov-title">实时天气</div>
+      <div class="ov-text">接入和风天气 API，展示各山岳当前天气及未来 15 天预报，支持温度、风力、湿度查看</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">🏷</div>
+      <div class="ov-title">分类筛选</div>
+      <div class="ov-text">按五岳、四大佛山、世界遗产、5A景区、雪山冰川、道教名山等标签快速过滤，支持海拔排序</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">📌</div>
+      <div class="ov-title">打卡足迹</div>
+      <div class="ov-text">标记已到访山岳，记录打卡时间，统计足迹省份数及各分类完成进度，支持分享</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">❤️</div>
+      <div class="ov-title">收藏夹</div>
+      <div class="ov-text">一键收藏感兴趣的山岳，独立收藏夹页面集中管理，数据存于云端跨设备同步</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">🔍</div>
+      <div class="ov-title">搜索</div>
+      <div class="ov-text">支持山岳名称、省市地区关键词搜索，实时过滤，快速定位目标山岳</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="s-eyebrow" style="margin-bottom:16px">用户使用流程</div>
+  <div class="flow-row">
+    <div class="flow-step"><div class="flow-step-num">01</div><div class="flow-step-name">打开小程序</div><div class="flow-step-sub">首页加载山岳列表</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">02</div><div class="flow-step-name">筛选 / 搜索</div><div class="flow-step-sub">按标签或关键词</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">03</div><div class="flow-step-name">查看详情</div><div class="flow-step-sub">地理信息 + 天气</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">04</div><div class="flow-step-name">收藏 / 打卡</div><div class="flow-step-sub">记录足迹</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">05</div><div class="flow-step-name">查看进度</div><div class="flow-step-sub">我的页面统计</div></div>
+  </div>
+</section>
+
+<!-- ── 2. 设计系统 ── -->
+<section class="section" id="s2">
+  <div class="s-eyebrow">02 · Design System</div>
+  <h2 class="s-title">设计系统</h2>
+  <p class="s-lead">以"山野纸本"为视觉基调，米白底色配多色分类标签，清晰传达信息层级。</p>
+
+  <div class="s-eyebrow" style="margin-bottom:16px">基础色彩</div>
+  <div class="color-row">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#3B6D11"></div>
+      <div class="swatch-info"><div class="swatch-name">苔绿 Moss</div><div class="swatch-hex">#3B6D11</div><div class="swatch-role">五岳 · 主品牌色</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#534AB7"></div>
+      <div class="swatch-info"><div class="swatch-name">山紫 Purple</div><div class="swatch-hex">#534AB7</div><div class="swatch-role">四大佛山</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0F6E56"></div>
+      <div class="swatch-info"><div class="swatch-name">翠色 Teal</div><div class="swatch-hex">#0F6E56</div><div class="swatch-role">世界遗产</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#185FA5"></div>
+      <div class="swatch-info"><div class="swatch-name">天蓝 Blue</div><div class="swatch-hex">#185FA5</div><div class="swatch-role">5A景区 · 交互色</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#854F0B"></div>
+      <div class="swatch-info"><div class="swatch-name">秋褐 Amber</div><div class="swatch-hex">#854F0B</div><div class="swatch-role">雪山冰川</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#993C1D"></div>
+      <div class="swatch-info"><div class="swatch-name">砖红 Coral</div><div class="swatch-hex">#993C1D</div><div class="swatch-role">道教名山</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#D85A30"></div>
+      <div class="swatch-info"><div class="swatch-name">火橙 Red</div><div class="swatch-hex">#D85A30</div><div class="swatch-role">收藏激活色</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FAF9F5"></div>
+      <div class="swatch-info"><div class="swatch-name">宣纸 Paper</div><div class="swatch-hex">#FAF9F5</div><div class="swatch-role">主背景色</div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="s-eyebrow" style="margin-bottom:16px">字体规范</div>
+  <div class="overview-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="ov-card">
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:8px">卡片标题</div>
+      <div style="font-size:24px;font-weight:500;color:var(--ink);font-family:'Noto Sans SC'">泰山</div>
+      <div class="ov-text" style="margin-top:8px">Noto Sans SC Medium · 12px · #222</div>
+    </div>
+    <div class="ov-card">
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:8px">详情标题</div>
+      <div style="font-size:32px;font-weight:500;color:var(--moss);font-family:'Noto Serif SC'">泰山</div>
+      <div class="ov-text" style="margin-top:8px">Noto Serif SC Medium · 15px · moss</div>
+    </div>
+    <div class="ov-card">
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:8px">辅助文字</div>
+      <div style="font-size:18px;font-weight:300;color:var(--ink3);font-family:'Noto Sans SC'">山东 · 泰安市</div>
+      <div class="ov-text" style="margin-top:8px">Noto Sans SC Light · 10px · #999</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="s-eyebrow" style="margin-bottom:16px">间距 & 圆角</div>
+  <div class="overview-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="ov-card" style="text-align:center">
+      <div style="width:40px;height:40px;background:var(--moss-l);border-radius:4px;margin:0 auto 8px;border:0.5px solid #97C459"></div>
+      <div class="ov-title">卡片内容区</div>
+      <div class="ov-text">padding 7–9px</div>
+    </div>
+    <div class="ov-card" style="text-align:center">
+      <div style="width:40px;height:40px;background:var(--blue-l);border-radius:8px;margin:0 auto 8px;border:0.5px solid #85B7EB"></div>
+      <div class="ov-title">卡片容器</div>
+      <div class="ov-text">radius 10px</div>
+    </div>
+    <div class="ov-card" style="text-align:center">
+      <div style="width:40px;height:40px;background:var(--amber-l);border-radius:12px;margin:0 auto 8px;border:0.5px solid #EF9F27"></div>
+      <div class="ov-title">弹窗 / 底卡</div>
+      <div class="ov-text">radius 12px</div>
+    </div>
+    <div class="ov-card" style="text-align:center">
+      <div style="width:40px;height:40px;background:var(--teal-l);border-radius:20px;margin:0 auto 8px;border:0.5px solid #5DCAA5"></div>
+      <div class="ov-title">搜索栏 / 标签</div>
+      <div class="ov-text">radius 18–20px</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. 界面设计 ── -->
+<section class="section" id="s3">
+  <div class="s-eyebrow">03 · Interface Design</div>
+  <h2 class="s-title">界面设计</h2>
+  <p class="s-lead">三大核心页面，完整覆盖浏览、查看、收藏打卡全流程。</p>
+
+  <div class="screens-grid">
+
+    <!-- 首页 -->
+    <div class="screen-item">
+      <div class="screen-label"><i class="ti ti-home"></i>首页 · 浏览 &amp; 筛选</div>
+      <div class="phone-shell">
+        <div class="phone-inner">
+          <div class="pstatus"><span>9:41</span><span>●●●</span></div>
+          <div class="pscreen">
+            <div class="p-search"><i class="ti ti-search" style="font-size:12px;color:#bbb"></i><span style="font-size:11px;color:#ccc">搜索山岳名称或省份…</span></div>
+            <div class="p-chips">
+              <div class="p-chip a">全部</div>
+              <div class="p-chip">五岳</div>
+              <div class="p-chip">四大佛山</div>
+              <div class="p-chip">世界遗产</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:9px;color:#aaa;margin-bottom:2px">
+              <span style="font-weight:500">全部山岳 · 186 座</span>
+              <span style="color:#185FA5">按海拔 ↕</span>
+            </div>
+            <div class="p-grid">
+              <div class="p-card">
+                <div class="p-cimg" style="background:#EAF3DE">
+                  <i class="ti ti-mountain hero" style="color:#3B6D11"></i>
+                  <div class="p-cbadge" style="background:#EAF3DE;color:#3B6D11;border:0.5px solid #97C459">五岳之首</div>
+                  <div class="p-calt">1545m</div>
+                  <div class="p-checkin"><i class="ti ti-check" style="font-size:7px"></i>打卡</div>
+                  <div class="p-cfav on"><i class="ti ti-heart"></i></div>
+                </div>
+                <div class="p-cbody">
+                  <div class="p-ctitle">泰山</div>
+                  <div class="p-csub">山东 · 泰安</div>
+                  <div class="p-cw"><span>多云 <i class="ti ti-cloud" style="font-size:9px;color:#378ADD"></i></span><span style="font-weight:500">12°</span></div>
+                </div>
+              </div>
+              <div class="p-card">
+                <div class="p-cimg" style="background:#E1F5EE">
+                  <i class="ti ti-mountain hero" style="color:#0F6E56"></i>
+                  <div class="p-cbadge" style="background:#E1F5EE;color:#0F6E56;border:0.5px solid #5DCAA5">世界遗产</div>
+                  <div class="p-calt">1864m</div>
+                  <div class="p-cfav"><i class="ti ti-heart"></i></div>
+                </div>
+                <div class="p-cbody">
+                  <div class="p-ctitle">黄山</div>
+                  <div class="p-csub">安徽 · 黄山市</div>
+                  <div class="p-cw"><span>晴 <i class="ti ti-sun" style="font-size:9px;color:#BA7517"></i></span><span style="font-weight:500">8°</span></div>
+                </div>
+              </div>
+              <div class="p-card">
+                <div class="p-cimg" style="background:#EEEDFE">
+                  <i class="ti ti-mountain hero" style="color:#534AB7"></i>
+                  <div class="p-cbadge" style="background:#EEEDFE;color:#534AB7;border:0.5px solid #AFA9EC">四大佛山</div>
+                  <div class="p-calt">3099m</div>
+                  <div class="p-cfav"><i class="ti ti-heart"></i></div>
+                </div>
+                <div class="p-cbody">
+                  <div class="p-ctitle">峨眉山</div>
+                  <div class="p-csub">四川 · 乐山</div>
+                  <div class="p-cw"><span>小雨 <i class="ti ti-cloud-rain" style="font-size:9px"></i></span><span style="font-weight:500">6°</span></div>
+                </div>
+              </div>
+              <div class="p-card">
+                <div class="p-cimg" style="background:#FAEEDA">
+                  <i class="ti ti-mountain hero" style="color:#854F0B"></i>
+                  <div class="p-cbadge" style="background:#FAEEDA;color:#854F0B;border:0.5px solid #EF9F27">雪山冰川</div>
+                  <div class="p-calt">7556m</div>
+                  <div class="p-cfav"><i class="ti ti-heart"></i></div>
+                </div>
+                <div class="p-cbody">
+                  <div class="p-ctitle">贡嘎山</div>
+                  <div class="p-csub">四川 · 甘孜</div>
+                  <div class="p-cw"><span>雪 <i class="ti ti-snowflake" style="font-size:9px;color:#378ADD"></i></span><span style="font-weight:500">-8°</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ptab">
+            <div class="pt a"><i class="ti ti-home"></i><span>首页</span></div>
+            <div class="pt"><i class="ti ti-search"></i><span>搜索</span></div>
+            <div class="pt"><i class="ti ti-heart"></i><span>收藏</span></div>
+            <div class="pt"><i class="ti ti-user"></i><span>我的</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 详情页 -->
+    <div class="screen-item">
+      <div class="screen-label"><i class="ti ti-mountain"></i>详情页 · 泰山</div>
+      <div class="phone-shell">
+        <div class="phone-inner">
+          <div class="pstatus"><span>9:41</span><span>●●●</span></div>
+          <div class="pscreen">
+            <div style="font-size:10px;color:#aaa;display:flex;align-items:center;gap:4px;margin-bottom:2px"><i class="ti ti-arrow-left" style="font-size:12px"></i>山岳列表</div>
+            <div class="p-hero">
+              <i class="ti ti-mountain" style="font-size:36px;color:#3B6D11;opacity:.35"></i>
+              <div class="p-hero-bot">
+                <div><div class="p-hname">泰山</div><div class="p-hloc"><i class="ti ti-map-pin"></i>山东省 · 泰安市 · 1545m</div></div>
+                <div class="p-hbtns">
+                  <div class="p-hbtn on"><i class="ti ti-heart"></i></div>
+                  <div class="p-hbtn"><i class="ti ti-share"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-info4">
+              <div class="p-ic"><div class="p-ilbl">所属山系</div><div class="p-ival">泰山山脉</div></div>
+              <div class="p-ic"><div class="p-ilbl">主峰海拔</div><div class="p-ival">1545 m</div></div>
+              <div class="p-ic"><div class="p-ilbl">地理坐标</div><div class="p-ival">36.25°N</div></div>
+              <div class="p-ic"><div class="p-ilbl">景区等级</div><div class="p-ival">5A · 双遗产</div></div>
+            </div>
+            <div class="p-wx">
+              <div class="p-wx-hd"><i class="ti ti-cloud-sun"></i>实时天气</div>
+              <div class="p-wx-now">
+                <div class="p-big-t">12°</div>
+                <div class="p-wx-meta">多云转晴<br>湿度 68% · 风力 3级</div>
+              </div>
+              <div class="p-wx-hd" style="margin-bottom:4px"><i class="ti ti-calendar"></i>15 天预报</div>
+              <div class="p-fc">
+                <div class="p-fcd t"><div class="p-fcd-date">今</div><i class="ti ti-cloud"></i><div class="p-fcd-t">12°</div></div>
+                <div class="p-fcd"><div class="p-fcd-date">明</div><i class="ti ti-sun" style="color:#BA7517"></i><div class="p-fcd-t">15°</div></div>
+                <div class="p-fcd"><div class="p-fcd-date">三</div><i class="ti ti-sun" style="color:#BA7517"></i><div class="p-fcd-t">16°</div></div>
+                <div class="p-fcd"><div class="p-fcd-date">四</div><i class="ti ti-cloud-rain"></i><div class="p-fcd-t">9°</div></div>
+                <div class="p-fcd"><div class="p-fcd-date">五</div><i class="ti ti-cloud-rain"></i><div class="p-fcd-t">7°</div></div>
+                <div class="p-fcd"><div class="p-fcd-date">六</div><i class="ti ti-cloud"></i><div class="p-fcd-t">11°</div></div>
+              </div>
+            </div>
+            <div class="p-desc">
+              泰山，古称岱宗，五岳之首，位于山东省泰安市。主峰玉皇顶海拔1545米，历代帝王封禅圣地。1987年列入世界遗产。
+              <div class="p-tags">
+                <span class="p-tag">五岳之首</span><span class="p-tag">世界遗产</span><span class="p-tag">5A景区</span>
+              </div>
+            </div>
+            <div class="p-ckbtn"><i class="ti ti-map-pin-check"></i>标记打卡此山</div>
+          </div>
+          <div class="ptab">
+            <div class="pt a"><i class="ti ti-home"></i><span>首页</span></div>
+            <div class="pt"><i class="ti ti-search"></i><span>搜索</span></div>
+            <div class="pt"><i class="ti ti-heart"></i><span>收藏</span></div>
+            <div class="pt"><i class="ti ti-user"></i><span>我的</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 我的 -->
+    <div class="screen-item">
+      <div class="screen-label"><i class="ti ti-user"></i>我的 · 打卡 &amp; 统计</div>
+      <div class="phone-shell">
+        <div class="phone-inner">
+          <div class="pstatus"><span>9:41</span><span>●●●</span></div>
+          <div class="pscreen">
+            <div class="p-profile">
+              <div class="p-ava">山</div>
+              <div style="flex:1"><div class="p-pname">山川探索者</div><div class="p-psub">足迹已遍及 7 个省份</div></div>
+              <i class="ti ti-settings" style="font-size:14px;color:#bbb"></i>
+            </div>
+            <div class="p-stats">
+              <div class="p-scel"><div class="p-snum">14</div><div class="p-slbl">已打卡</div></div>
+              <div class="p-scel"><div class="p-snum">9</div><div class="p-slbl">已收藏</div></div>
+              <div class="p-scel"><div class="p-snum">7</div><div class="p-slbl">省份</div></div>
+              <div class="p-scel"><div class="p-snum">3</div><div class="p-slbl">山系</div></div>
+            </div>
+            <div class="p-prog">
+              <div class="p-prog-hd"><span>分类打卡进度</span><span style="color:#185FA5">14/186</span></div>
+              <div class="p-prow"><span class="p-pname2">五岳</span><div class="p-pbg"><div class="p-pfill" style="width:60%;background:#639922"></div></div><span class="p-pcnt">3/5</span></div>
+              <div class="p-prow"><span class="p-pname2">四大佛山</span><div class="p-pbg"><div class="p-pfill" style="width:25%;background:#378ADD"></div></div><span class="p-pcnt">1/4</span></div>
+              <div class="p-prow"><span class="p-pname2">世界遗产</span><div class="p-pbg"><div class="p-pfill" style="width:30%;background:#7F77DD"></div></div><span class="p-pcnt">3/10</span></div>
+              <div class="p-prow"><span class="p-pname2">雪山冰川</span><div class="p-pbg"><div class="p-pfill" style="width:10%;background:#D85A30"></div></div><span class="p-pcnt">1/12</span></div>
+            </div>
+            <div class="p-sec-hd"><span class="p-sec-title">打卡记录</span><span class="p-sec-more">全部 ›</span></div>
+            <div class="p-cklist">
+              <div class="p-ckitem">
+                <div class="p-ckicon"><i class="ti ti-mountain"></i></div>
+                <div><div class="p-ckname">泰山</div><div class="p-ckdate">2024-03-15</div></div>
+                <span class="p-ckprov">山东</span>
+              </div>
+              <div class="p-ckitem">
+                <div class="p-ckicon" style="background:#EEEDFE"><i class="ti ti-mountain" style="color:#534AB7"></i></div>
+                <div><div class="p-ckname">峨眉山</div><div class="p-ckdate">2024-01-08</div></div>
+                <span class="p-ckprov">四川</span>
+              </div>
+              <div class="p-ckitem">
+                <div class="p-ckicon" style="background:#FAEEDA"><i class="ti ti-route" style="color:#854F0B"></i></div>
+                <div><div class="p-ckname">AI 推荐下一站</div><div class="p-ckdate">基于已打卡记录</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="ptab">
+            <div class="pt"><i class="ti ti-home"></i><span>首页</span></div>
+            <div class="pt"><i class="ti ti-search"></i><span>搜索</span></div>
+            <div class="pt"><i class="ti ti-heart"></i><span>收藏</span></div>
+            <div class="pt a"><i class="ti ti-user"></i><span>我的</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 4. 功能模块 ── -->
+<section class="section" id="s4">
+  <div class="s-eyebrow">04 · Feature Modules</div>
+  <h2 class="s-title">功能模块说明</h2>
+  <p class="s-lead">各功能的交互逻辑、数据来源与技术实现方案。</p>
+
+  <table class="feat-table">
+    <thead>
+      <tr>
+        <th>功能</th>
+        <th>页面</th>
+        <th>交互说明</th>
+        <th>数据来源</th>
+        <th>实现</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>山岳列表</strong></td>
+        <td>首页</td>
+        <td>双列卡片网格，每张卡片展示名称、省市、海拔、实时天气、打卡/收藏状态</td>
+        <td>本地 JSON 数据</td>
+        <td><span class="badge badge-local">本地</span></td>
+      </tr>
+      <tr>
+        <td><strong>分类筛选</strong></td>
+        <td>首页</td>
+        <td>横滑标签芯片，点击过滤列表；支持"已打卡"快捷筛选；右侧按钮切换海拔/默认排序</td>
+        <td>tags 字段匹配</td>
+        <td><span class="badge badge-local">本地</span></td>
+      </tr>
+      <tr>
+        <td><strong>关键词搜索</strong></td>
+        <td>搜索页</td>
+        <td>输入山名或省市关键词，实时过滤，支持拼音首字母搜索</td>
+        <td>本地过滤</td>
+        <td><span class="badge badge-local">本地</span></td>
+      </tr>
+      <tr>
+        <td><strong>实时天气</strong></td>
+        <td>首页卡片、详情页</td>
+        <td>首页懒加载（分批 5 条），详情页进入时触发；展示温度、天气描述、风力、湿度、能见度</td>
+        <td>和风天气 /weather/now</td>
+        <td><span class="badge badge-api">API</span></td>
+      </tr>
+      <tr>
+        <td><strong>15天天气预报</strong></td>
+        <td>详情页</td>
+        <td>横滑卡片条，今日高亮，展示日期/图标/最高温，可展开查看详细参数</td>
+        <td>和风天气 /weather/15d</td>
+        <td><span class="badge badge-api">API</span></td>
+      </tr>
+      <tr>
+        <td><strong>地理信息</strong></td>
+        <td>详情页</td>
+        <td>四格信息卡：所属山系、主峰海拔、地理坐标、景区等级；标签行展示所有分类标签</td>
+        <td>本地 JSON</td>
+        <td><span class="badge badge-local">本地</span></td>
+      </tr>
+      <tr>
+        <td><strong>收藏</strong></td>
+        <td>首页、详情页、收藏夹</td>
+        <td>点击爱心图标切换收藏状态，数据存储于云数据库 favorites 集合，按 openid 隔离</td>
+        <td>云数据库</td>
+        <td><span class="badge badge-db">云DB</span></td>
+      </tr>
+      <tr>
+        <td><strong>打卡记录</strong></td>
+        <td>详情页、我的</td>
+        <td>点击"标记打卡"按钮写入 checkins 集合，记录 mountain_id + 时间戳；可选 GPS 围栏验证</td>
+        <td>云数据库</td>
+        <td><span class="badge badge-db">云DB</span></td>
+      </tr>
+      <tr>
+        <td><strong>打卡进度统计</strong></td>
+        <td>我的</td>
+        <td>按分类展示进度条（已打卡/总数），统计足迹省份数、覆盖山系数</td>
+        <td>云数据库聚合</td>
+        <td><span class="badge badge-db">云DB</span></td>
+      </tr>
+      <tr>
+        <td><strong>收藏夹管理</strong></td>
+        <td>收藏标签页</td>
+        <td>展示所有收藏山岳，支持长按删除，按收藏时间降序排列</td>
+        <td>云数据库</td>
+        <td><span class="badge badge-db">云DB</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── 5. 技术架构 ── -->
+<section class="section" id="s5">
+  <div class="s-eyebrow">05 · Technical Architecture</div>
+  <h2 class="s-title">技术架构</h2>
+  <p class="s-lead">微信云开发 Serverless 架构，前端直连数据库，天气数据通过云函数代理请求。</p>
+
+  <div class="arch-grid">
+    <div class="arch-cell">
+      <div class="arch-cell-title"><i class="ti ti-device-mobile"></i>前端层</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#3B6D11"></div>WXML 页面结构</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#3B6D11"></div>WXSS 样式（rpx 单位）</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#3B6D11"></div>JS 逻辑 + 数据绑定</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#3B6D11"></div>本地 mountains.js 数据</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#3B6D11"></div>wx.cloud SDK</div>
+    </div>
+    <div class="arch-cell">
+      <div class="arch-cell-title"><i class="ti ti-cloud"></i>云开发层</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#185FA5"></div>云数据库（favorites）</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#185FA5"></div>云数据库（checkins）</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#185FA5"></div>云函数 getWeather</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#185FA5"></div>云函数 getUserStats</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#185FA5"></div>云存储（未来图片）</div>
+    </div>
+    <div class="arch-cell">
+      <div class="arch-cell-title"><i class="ti ti-api"></i>外部 API</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#854F0B"></div>和风天气 /weather/now</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#854F0B"></div>和风天气 /weather/15d</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#854F0B"></div>wx.getLocation（打卡）</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#854F0B"></div>wx.getUserProfile（授权）</div>
+      <div class="arch-item"><div class="arch-dot" style="background:#854F0B"></div>wx.shareAppMessage（分享）</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="s-eyebrow" style="margin-bottom:16px">云函数：getWeather（天气代理）</div>
+  <div class="code-block">
+<span class="cmt">// cloudfunctions/getWeather/index.js</span>
+<span class="cmt">// 统一代理天气请求，避免 API Key 暴露在前端</span>
+const cloud = require(<span class="str">'wx-server-sdk'</span>)
+const got   = require(<span class="str">'got'</span>)
+cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+
+exports.main = async (event) => {
+  const { lat, lng, type = <span class="str">'now'</span> } = event
+  const KEY  = process.env.QWEATHER_KEY
+  const path = type === <span class="str">'15d'</span> ? <span class="str">'weather/15d'</span> : <span class="str">'weather/now'</span>
+  const url  = `https://devapi.qweather.com/v7/<span class="str">${path}</span>`
+
+  const { body } = await got(url, {
+    searchParams: { location: `<span class="str">${lng},${lat}</span>`, key: KEY, lang: <span class="str">'zh'</span>, unit: <span class="str">'m'</span> },
+    responseType: <span class="str">'json'</span>
+  })
+  return body
+}
+  </div>
+</section>
+
+<!-- ── 6. 数据结构 ── -->
+<section class="section" id="s6">
+  <div class="s-eyebrow">06 · Data Schema</div>
+  <h2 class="s-title">数据结构</h2>
+  <p class="s-lead">山岳基础数据以 JSON 本地存储，用户数据（收藏、打卡）存于云数据库。</p>
+
+  <div class="s-eyebrow" style="margin-bottom:10px">山岳数据（本地 JSON）</div>
+  <div class="code-block">
+{
+  <span class="key">"id"</span>:              <span class="str">"taishan"</span>,           <span class="cmt">// 唯一标识</span>
+  <span class="key">"name"</span>:            <span class="str">"泰山"</span>,
+  <span class="key">"province"</span>:        <span class="str">"山东"</span>,
+  <span class="key">"city"</span>:            <span class="str">"泰安市"</span>,
+  <span class="key">"altitude"</span>:        <span class="num">1545</span>,              <span class="cmt">// 海拔，单位 m</span>
+  <span class="key">"coords"</span>: {
+    <span class="key">"lat"</span>: <span class="num">36.2544</span>, <span class="key">"lng"</span>: <span class="num">117.1006</span>
+  },
+  <span class="key">"mountain_system"</span>: <span class="str">"泰山山脉"</span>,
+  <span class="key">"tags"</span>:            [<span class="str">"五岳"</span>, <span class="str">"世界遗产"</span>, <span class="str">"5A景区"</span>],
+  <span class="key">"level"</span>:           <span class="str">"5A"</span>,              <span class="cmt">// 景区等级</span>
+  <span class="key">"heritage"</span>:        <span class="bool">true</span>,             <span class="cmt">// 是否世界遗产</span>
+  <span class="key">"intro"</span>:           <span class="str">"泰山，古称岱宗…"</span>
+}
+  </div>
+
+  <div class="s-eyebrow" style="margin-bottom:10px">云数据库：favorites（收藏）</div>
+  <div class="code-block">
+{
+  <span class="key">"_id"</span>:          <span class="str">"auto"</span>,
+  <span class="key">"_openid"</span>:      <span class="str">"用户openid（自动）"</span>,
+  <span class="key">"mountain_id"</span>:  <span class="str">"taishan"</span>,
+  <span class="key">"created_at"</span>:   <span class="str">"2024-03-15T10:30:00Z"</span>
+}
+  </div>
+
+  <div class="s-eyebrow" style="margin-bottom:10px">云数据库：checkins（打卡）</div>
+  <div class="code-block">
+{
+  <span class="key">"_id"</span>:          <span class="str">"auto"</span>,
+  <span class="key">"_openid"</span>:      <span class="str">"用户openid（自动）"</span>,
+  <span class="key">"mountain_id"</span>:  <span class="str">"taishan"</span>,
+  <span class="key">"mountain_name"</span>: <span class="str">"泰山"</span>,         <span class="cmt">// 冗余字段，便于列表展示</span>
+  <span class="key">"province"</span>:     <span class="str">"山东"</span>,
+  <span class="key">"checkin_at"</span>:   <span class="str">"2024-03-15T10:30:00Z"</span>,
+  <span class="key">"location"</span>: {                       <span class="cmt">// 可选，GPS 验证</span>
+    <span class="key">"lat"</span>: <span class="num">36.25</span>, <span class="key">"lng"</span>: <span class="num">117.10</span>
+  }
+}
+  </div>
+</section>
+
+<!-- ── 7. 文件结构 ── -->
+<section class="section" id="s7">
+  <div class="s-eyebrow">07 · File Structure</div>
+  <h2 class="s-title">项目文件结构</h2>
+  <p class="s-lead">微信云开发标准目录结构，前后端分离，工具函数统一在 utils/ 下管理。</p>
+
+  <div class="file-tree">
+    <div class="dir">mountain-app/</div>
+    <div class="indent1 dir">miniprogram/                   <span class="desc">← 前端代码</span></div>
+    <div class="indent2 dir">data/</div>
+    <div class="indent3 file">mountains.js                   <span class="desc">← 186 座山岳基础数据</span></div>
+    <div class="indent2 dir">utils/</div>
+    <div class="indent3 file">weather.js                     <span class="desc">← 天气 API 封装</span></div>
+    <div class="indent3 file">storage.js                     <span class="desc">← 本地缓存工具（收藏/打卡）</span></div>
+    <div class="indent2 dir">pages/</div>
+    <div class="indent3 dir">index/                         <span class="desc">← 首页（列表+筛选）</span></div>
+    <div class="indent3 dir">detail/                        <span class="desc">← 详情页（天气+地理+打卡）</span></div>
+    <div class="indent3 dir">search/                        <span class="desc">← 搜索页</span></div>
+    <div class="indent3 dir">favorites/                     <span class="desc">← 收藏夹</span></div>
+    <div class="indent3 dir">profile/                       <span class="desc">← 我的（统计+打卡记录）</span></div>
+    <div class="indent2 file">app.js                         <span class="desc">← 全局初始化，wx.cloud.init()</span></div>
+    <div class="indent2 file">app.json                       <span class="desc">← 页面路由 + 标签栏配置</span></div>
+    <div class="indent2 file">app.wxss                       <span class="desc">← 全局公共样式</span></div>
+    <div class="indent1 dir">cloudfunctions/                <span class="desc">← 云函数代码</span></div>
+    <div class="indent2 dir">getWeather/                    <span class="desc">← 天气代理（保护 API Key）</span></div>
+    <div class="indent2 dir">getUserStats/                  <span class="desc">← 聚合打卡统计</span></div>
+    <div class="indent2 dir">toggleFavorite/                <span class="desc">← 收藏 增/删</span></div>
+    <div class="indent2 dir">checkin/                       <span class="desc">← 打卡写入 + GPS 验证</span></div>
+    <div class="indent1 file">project.config.json            <span class="desc">← 小程序 AppID + 云环境配置</span></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">山<span>岳</span>志</div>
+  <div class="footer-meta">Design Specification v1.0 · 国内山岳信息查询小程序 · 微信云开发</div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('[id^="s"]')
+const dots = document.querySelectorAll('.toc-dot')
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = Array.from(sections).indexOf(e.target)
+      dots.forEach((d,i)=>d.classList.toggle('active',i===idx))
+    }
+  })
+},{threshold:0.3})
+sections.forEach(s=>obs.observe(s))
+function scrollToSection(i){sections[i]?.scrollIntoView({behavior:'smooth'})}
+</script>
+</body>
+</html>

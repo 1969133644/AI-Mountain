@@ -1,0 +1,30 @@
+/* 精简图标类名（字体由 app.js wx.loadFontFace 加载） */
+.ti {
+  font-family: 'tabler-icons' !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ti-mountain:before { content: '\ef97'; }
+.ti-heart:before { content: '\eabe'; }
+.ti-arrow-left:before { content: '\ea19'; }
+.ti-map-pin:before { content: '\eae8'; }
+.ti-cloud-sun:before { content: '\ea76'; }
+.ti-calendar:before { content: '\ea53'; }
+.ti-sun:before { content: '\eb30'; }
+.ti-cloud:before { content: '\ea76'; }
+.ti-cloud-rain:before { content: '\ea72'; }
+.ti-cloud-storm:before { content: '\ea74'; }
+.ti-snowflake:before { content: '\ec0b'; }
+.ti-mist:before { content: '\ec30'; }
+.ti-search:before { content: '\eb1c'; }
+.ti-settings:before { content: '\eb20'; }
+.ti-route:before { content: '\eb17'; }
+.ti-map-pin-check:before { content: '\f94c'; }
+.ti-share:before { content: '\eb21'; }
+.ti-adjustments-horizontal:before { content: '\ec38'; }
+.ti-arrows-sort:before { content: '\eb5a'; }
+.ti-check:before { content: '\ea5e'; }
+.ti-x:before { content: '\eb55'; }

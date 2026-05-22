@@ -1,0 +1,78 @@
+<!-- pages/profile/profile.wxml -->
+<view class="page">
+  <view class="p-profile">
+    <view wx:if="{{isLoggedIn}}" class="p-avatar">
+      <image src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+    </view>
+    <view wx:else class="p-avatar"><text>山</text></view>
+    <view class="p-info">
+      <text class="p-name">{{isLoggedIn ? userInfo.nickName : '山川探索者'}}</text>
+      <text class="p-sub">{{isLoggedIn ? '已登录' : '点击登录'}}</text>
+    </view>
+    <view class="p-actions">
+      <button wx:if="{{!isLoggedIn}}" class="login-btn" open-type="getUserInfo" bindgetuserinfo="onLogin">
+        <text>登录</text>
+      </button>
+      <view wx:else class="logout-btn" bindtap="onLogout">
+        <text>退出</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats-row">
+    <view class="stat-cell"><text class="stat-num">{{stats.checkinCount}}</text><text class="stat-lbl">已打卡</text></view>
+    <view class="stat-cell"><text class="stat-num">{{stats.favCount}}</text><text class="stat-lbl">已收藏</text></view>
+    <view class="stat-cell"><text class="stat-num">{{stats.provinces}}</text><text class="stat-lbl">省份</text></view>
+    <view class="stat-cell"><text class="stat-num">{{stats.systems}}</text><text class="stat-lbl">山系</text></view>
+  </view>
+
+  <view class="prog-card">
+    <view class="prog-hd">
+      <text class="prog-title">分类打卡进度</text>
+      <text class="prog-total">{{stats.checkinCount}} / {{stats.totalMountains}}</text>
+    </view>
+    <view wx:for="{{progress}}" wx:key="name" class="prog-row">
+      <text class="prog-name">{{item.name}}</text>
+      <view class="prog-bar-bg">
+        <view class="prog-bar-fill" style="width:{{item.pct}}%;background:{{item.color}}"></view>
+      </view>
+      <text class="prog-cnt">{{item.done}}/{{item.total}}</text>
+    </view>
+  </view>
+
+  <view class="sec-hd">
+    <text class="sec-title">打卡记录</text>
+    <text class="sec-more">全部 ›</text>
+  </view>
+
+  <view wx:if="{{checkinList.length === 0 && !aiRecommend}}" class="ck-empty">
+    <text>还没有打卡记录，去首页选一座山开始吧</text>
+  </view>
+
+  <view class="ck-list">
+    <view
+      wx:for="{{checkinList}}" wx:key="id"
+      class="ck-item"
+      bindtap="goDetail" data-id="{{item.id}}"
+    >
+      <view class="ck-icon bg-{{item.bgColor}}">
+        <text>⛰</text>
+      </view>
+      <view class="ck-body">
+        <text class="ck-name">{{item.name}}</text>
+        <text class="ck-date">{{item.checkin_at}}</text>
+      </view>
+      <text class="ck-prov">{{item.province}}</text>
+    </view>
+
+    <view wx:if="{{aiRecommend}}" class="ck-item" bindtap="goRecommend">
+      <view class="ck-icon bg-amber">
+        <text>→</text>
+      </view>
+      <view class="ck-body">
+        <text class="ck-name">AI 推荐下一站</text>
+        <text class="ck-date">基于已打卡记录 · {{aiRecommend.suggestName}}</text>
+      </view>
+    </view>
+  </view>
+</view>

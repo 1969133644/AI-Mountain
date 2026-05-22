@@ -1,0 +1,15 @@
+<!-- pages/favorites/favorites.wxml -->
+<view class="page">
+  <view class="sec-hd">
+    <text class="sec-title">我的收藏 · {{list.length}} 座</text>
+  </view>
+  <view wx:if="{{list.length === 0}}" class="empty">暂无收藏，在首页点击 ♡ 收藏山岳</view>
+  <view
+    wx:for="{{list}}" wx:key="id"
+    class="fav-item"
+    bindtap="goDetail" data-id="{{item.id}}"
+  >
+    <text class="fav-name">{{item.name}}</text>
+    <text class="fav-sub">{{item.province}} · {{item.altitude}}m</text>
+  </view>
+</view>

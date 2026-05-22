@@ -1,0 +1,26 @@
+/* app.wxss — 全局公共样式 */
+page {
+  background: #F5F4F0;
+  font-family: -apple-system, 'PingFang SC', sans-serif;
+}
+
+.row { display: flex; align-items: center; }
+.row-sb { display: flex; align-items: center; justify-content: space-between; }
+.col { display: flex; flex-direction: column; }
+
+.t-title { font-size: 28rpx; font-weight: 500; color: #222; }
+.t-body { font-size: 24rpx; color: #444; }
+.t-sub { font-size: 22rpx; color: #999; }
+.t-caption { font-size: 20rpx; color: #bbb; }
+
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  border: 1rpx solid #e8e5d8;
+  overflow: hidden;
+}
+
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* 图标占位（避免外部字体导致白屏） */
+.ti { display: inline-block; min-width: 1em; text-align: center; }

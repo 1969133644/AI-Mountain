@@ -1,0 +1,1 @@
+{ "name": "getWeather", "version": "1.0.0", "dependencies": { "got": "^11.8.6", "wx-server-sdk": "~2.6.3" } }

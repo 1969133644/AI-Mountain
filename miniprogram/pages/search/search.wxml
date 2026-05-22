@@ -1,0 +1,78 @@
+<!-- pages/search/search.wxml -->
+<view class="page">
+  <view class="search-wrap">
+    <view class="search-input-box">
+      <text class="ti ti-search icon-s"></text>
+      <input
+        class="search-input" placeholder="山岳名称 / 省份 / 山系…"
+        bindinput="onInput" value="{{keyword}}" focus="{{true}}"
+        confirm-type="search"
+      />
+      <text wx:if="{{keyword}}" class="ti ti-x icon-s clear-btn" bindtap="clearInput"></text>
+    </view>
+    <view class="filter-trigger" bindtap="toggleFilterPanel">
+      <text>筛选</text>
+    </view>
+    <view class="cancel-btn" bindtap="onCancel">
+      <text>取消</text>
+    </view>
+  </view>
+
+  <view wx:if="{{showFilter}}" class="filter-panel">
+    <view class="filter-section">
+      <text class="filter-title">状态筛选</text>
+      <view class="filter-options">
+        <view
+          wx:for="{{filterOptions}}" wx:key="key"
+          class="filter-option {{activeFilter === item.key ? 'filter-option-on' : ''}}"
+          bindtap="onFilterTap" data-filter="{{item.key}}"
+        >{{item.label}}</view>
+      </view>
+    </view>
+    <view class="filter-section">
+      <text class="filter-title">类型筛选</text>
+      <scroll-view class="tag-scroll" scroll-x>
+        <view
+          wx:for="{{tags}}" wx:key="*this"
+          class="tag-chip {{activeTag === item ? 'tag-chip-on' : ''}}"
+          bindtap="onTagTap" data-tag="{{item}}"
+        >{{item}}</view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view wx:if="{{results.length === 0 && !showFilter}}" class="hint">
+    <text class="ti ti-mountain" style="font-size:48rpx;color:#ddd"></text>
+    <text class="hint-text">{{keyword ? '未找到"' + keyword + '"相关山岳' : '搜索山岳名称、省份或山系'}}</text>
+  </view>
+
+  <view wx:else class="result-list">
+    <view
+      wx:for="{{results}}" wx:key="id"
+      class="result-item"
+      bindtap="goDetail" data-id="{{item.id}}"
+    >
+      <view class="r-img">
+        <view class="r-icon bg-{{item.bgColor}}" wx:if="{{!item.imageLoaded}}">
+          <text>⛰</text>
+        </view>
+        <image 
+          src="{{item.image}}" 
+          mode="aspectFill" 
+          class="r-img-src"
+          bindload="onImageLoad"
+          data-id="{{item.id}}"
+          binderror="onImageLoad"
+        />
+      </view>
+      <view class="r-body">
+        <text class="r-name">{{item.name}}</text>
+        <text class="r-sub">{{item.province}} · {{item.city}} · {{item.altitude}}m</text>
+      </view>
+      <view class="r-status">
+        <text wx:if="{{item.checkedIn}}" class="status-badge checked">已打卡</text>
+        <text wx:if="{{item.favorited}}" class="status-badge favorited">已收藏</text>
+      </view>
+    </view>
+  </view>
+</view>

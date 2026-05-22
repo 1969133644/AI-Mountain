@@ -1,0 +1,24 @@
+{
+  "appid": "wxdaf10ddc4f7ccce7",
+  "projectname": "山岳志",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudbaseEnv": "cloud1-d8g7841jkdde845ac",
+  "compileType": "miniprogram",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true
+  },
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  }
+}

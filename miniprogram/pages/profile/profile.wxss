@@ -1,0 +1,262 @@
+/* pages/profile/profile.wxss — 对齐设计稿「我的」页 */
+.page {
+  padding: 12px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  background: #F5F4F0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.p-profile {
+  background: #fff;
+  border-radius: 10px;
+  border: 0.5px solid #e8e5d8;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.p-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #E6F1FB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0C447C;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.p-avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.p-info { flex: 1; min-width: 0; }
+
+.p-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  display: block;
+}
+
+.p-sub {
+  font-size: 10px;
+  color: #bbb;
+  margin-top: 2px;
+  display: block;
+}
+
+.p-actions { flex-shrink: 0; }
+
+.login-btn {
+  background: #E6F1FB;
+  border: 0.5px solid #85B7EB;
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-size: 11px;
+  color: #0C447C;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1;
+}
+
+.login-btn::after {
+  border: none;
+}
+
+.logout-btn {
+  padding: 6px 14px;
+  font-size: 11px;
+  color: #999;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.stat-cell {
+  background: #fff;
+  border-radius: 8px;
+  border: 0.5px solid #e8e5d8;
+  padding: 10px 4px;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+  display: block;
+}
+
+.stat-lbl {
+  font-size: 10px;
+  color: #bbb;
+  margin-top: 2px;
+  display: block;
+}
+
+.prog-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 0.5px solid #e8e5d8;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.prog-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.prog-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+}
+
+.prog-total {
+  font-size: 11px;
+  font-weight: 500;
+  color: #185FA5;
+}
+
+.prog-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.prog-row:last-child { margin-bottom: 0; }
+
+.prog-name {
+  font-size: 10px;
+  color: #444;
+  width: 56px;
+  flex-shrink: 0;
+}
+
+.prog-bar-bg {
+  flex: 1;
+  height: 6px;
+  background: #f0ede4;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.prog-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.prog-cnt {
+  font-size: 10px;
+  color: #bbb;
+  width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sec-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sec-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+}
+
+.sec-more {
+  font-size: 10px;
+  color: #185FA5;
+}
+
+.ck-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ck-item {
+  background: #fff;
+  border-radius: 8px;
+  border: 0.5px solid #e8e5d8;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ck-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ck-body { flex: 1; min-width: 0; }
+
+.ck-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #222;
+  display: block;
+}
+
+.ck-date {
+  font-size: 10px;
+  color: #bbb;
+  margin-top: 2px;
+  display: block;
+}
+
+.ck-prov {
+  font-size: 10px;
+  color: #bbb;
+  flex-shrink: 0;
+}
+
+.ck-empty {
+  background: #fff;
+  border-radius: 8px;
+  border: 0.5px solid #e8e5d8;
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.bg-green  { background: #EAF3DE; }
+.bg-teal   { background: #E1F5EE; }
+.bg-purple { background: #EEEDFE; }
+.bg-blue   { background: #E6F1FB; }
+.bg-amber  { background: #FAEEDA; }
+.bg-coral  { background: #FAECE7; }
+.bg-gray   { background: #F1EFE8; }
+
+.icon-m { font-size: 16px; }
+
+.ck-icon-green .ti-mountain { color: #3B6D11; }
+.ck-icon-purple .ti-mountain { color: #534AB7; }
+.ck-icon-amber .ti-route { color: #854F0B; }
